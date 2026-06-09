@@ -3,129 +3,150 @@ function greet(callback){
     console.log("Hello");
     callback();
 }
+
 function sayGoodbye(){
     console.log("Goodbye");
 }
+
 greet(sayGoodbye);
+
+
 // call back example with parameters:
 function add(num1, num2, callback){
     const sum = num1 + num2;
     callback(sum);
 }
+
 function displayResult(result){
     console.log("The result is: " + result);
 }
+
 add(5, 10, displayResult);
-//Callback with setTimeout :
+
+
+// Callback with setTimeout :
 function delayedMessage(callback) {
-  console.log("Wait for 7 seconds...");
-  setTimeout(callback, 7000); 
+    console.log("Wait for 7 seconds...");
+    setTimeout(callback, 7000);
 }
+
 function showMessage() {
-  console.log("This message is delayed!");
+    console.log("This message is delayed!");
 }
+
 delayedMessage(showMessage);
-//example of promise resolve:
+
+
+// example of promise resolve:
 let promiseResolve = new Promise((resolve, reject) => {
-  resolve("Task completed successfully!");
+    resolve("Task completed successfully!");
 });
+
 promiseResolve.then((message) => {
-  console.log(message);
-});
-
-
-//example of promise reject:
-let promiseReject = new Promise((resolve, reject) => {
-  reject("Something went wrong!");
-});
-promiseReject
-  .then((message) => {
     console.log(message);
-  })
-  .catch((error) => {
-    console.log("Error: " + error);
-  });
-
-
-  //example of chaninig multiple.then() methods:
-  let promiseChain = new Promise((resolve, reject) => {
-  resolve(5);
 });
-promiseChain
-  .then((num) => {
-    console.log("First then: " + num);
-    return num * 2;
-  })
-  .then((num) => {
-    console.log("Second then: " + num);
-    return num + 3;
-  })
-  .then((num) => {
-    console.log("Third then: " + num);
-  });
 
 
-  //example of async/await:
-  async function fetchData() {
-    return new promise((resolve) => {
-      setTimeout(() => {
-        resolve("Data fetched successfully!");
-      }, 3000);
-    });
-  }
-  async function getData() {
-    console.log("Fetching data...");
-    let result = await fetchData();
-    console.log(result);
-  }
-    getData();
+// example of promise reject:
+let promiseReject = new Promise((resolve, reject) => {
+    reject("Something went wrong!");
+});
 
-
-    //hanadling errors with try/catch 
-    async function fetchWithError() {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                reject("Failed to fetch data!");
-            }, 3000);
-        });
-    }
-    async function getDataWithErrorHandling() {
-        try {
-            let result = await fetchWithError();
-            console.log(result);
-        } catch (error) {
-            console.log("Error: " + error);
-        }
-    }
-    getDataWithErrorHandling();
-
-
-    //comparing promise vs async/await:
-    //Using Promises:
-    function fetchDataWithPromise() {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve("Data fetched with Promise!");
-            }, 2000);
-        });
-    }
-    fetchDataWithPromise().then((message) => {
+promiseReject
+    .then((message) => {
         console.log(message);
-    });
+    })
     .catch((error) => {
         console.log("Error: " + error);
     });
 
-    //Using Async/Await:
-    async function fetchDataWithAsyncAwait() {
-        try {
-            let result = await fetchDataWithPromise();
-            console.log(result);
-        } catch (error) {
-            console.log("Error: " + error);
-        }   
-    }
-    fetchDataWithAsyncAwait();
-    
 
-    
+// example of chaining multiple .then() methods:
+let promiseChain = new Promise((resolve, reject) => {
+    resolve(5);
+});
+
+promiseChain
+    .then((num) => {
+        console.log("First then: " + num);
+        return num * 2;
+    })
+    .then((num) => {
+        console.log("Second then: " + num);
+        return num + 3;
+    })
+    .then((num) => {
+        console.log("Third then: " + num);
+    });
+
+
+// example of async/await:
+async function fetchData() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Data fetched successfully!");
+        }, 3000);
+    });
+}
+
+async function getData() {
+    console.log("Fetching data...");
+    let result = await fetchData();
+    console.log(result);
+}
+
+getData();
+
+
+// handling errors with try/catch
+async function fetchWithError() {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            reject("Failed to fetch data!");
+        }, 3000);
+    });
+}
+
+async function getDataWithErrorHandling() {
+    try {
+        let result = await fetchWithError();
+        console.log(result);
+    } catch (error) {
+        console.log("Error: " + error);
+    }
+}
+
+getDataWithErrorHandling();
+
+
+// comparing promise vs async/await:
+
+// Using Promises:
+function fetchDataWithPromise() {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            resolve("Data fetched with Promise!");
+        }, 2000);
+    });
+}
+
+fetchDataWithPromise()
+    .then((message) => {
+        console.log(message);
+    })
+    .catch((error) => {
+        console.log("Error: " + error);
+    });
+
+
+// Using Async/Await:
+async function fetchDataWithAsyncAwait() {
+    try {
+        let result = await fetchDataWithPromise();
+        console.log(result);
+    } catch (error) {
+        console.log("Error: " + error);
+    }
+}
+
+fetchDataWithAsyncAwait();
